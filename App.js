@@ -19,14 +19,14 @@ export default function App() {
   const [valor, setValor] = useState("");
 
   const [mensagem, setMensagem] = useState("");
-  const [tipoMensagem, setTipoMensagem] = useState("sucesso"); // "sucesso" | "erro"
+  const [tipoMensagem, setTipoMensagem] = useState("sucesso"); 
 
-  const API_URL = "http://localhost:3000"; // ajuste se usar em dispositivo
+  const API_URL = "http://localhost:3000"; 
 
-  // 🔹 Formatar data
+  //  Formatar data
   const formatarData = (dataISO) => {
     if (!dataISO) return "";
-    // Normaliza "YYYY-MM-DD HH:MM:SS" -> "YYYY-MM-DDTHH:MM:SS"
+  
     const data = new Date(String(dataISO).replace(" ", "T"));
     if (isNaN(data.getTime())) return "Data inválida";
 
@@ -40,12 +40,11 @@ export default function App() {
     });
   };
 
-  // 🔹 Buscar pedidos
+  // Buscar pedidos
   const carregarPedidos = () => {
     axios
       .get(`${API_URL}/pedidos`)
       .then((res) => {
-        console.log("Pedidos recebidos:", res.data); // debug para ver campos de data
         setPedidos(res.data);
       })
       .catch((err) => console.log(err));
@@ -55,14 +54,13 @@ export default function App() {
     carregarPedidos();
   }, []);
 
-  // 🔹 Mensagem temporária
   const mostrarMensagem = (texto, tipo = "sucesso") => {
     setMensagem(texto);
     setTipoMensagem(tipo);
     setTimeout(() => setMensagem(""), 3000);
   };
 
-  // 🔹 Cadastrar Cliente + Pedido
+  //  Cadastrar Cliente + Pedido
   const cadastrarTudo = async () => {
     if (!nome || !email || !descricao || !valor) {
       mostrarMensagem("Preencha todos os campos!", "erro");
